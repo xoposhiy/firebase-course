@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.3.1/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyC_u4qJMhsbOzdkmCF_8m5m9Wl6NEH9QBM",
+            authDomain: "stop-hunter.firebaseapp.com",
+            databaseURL: "https://stop-hunter.firebaseio.com",
+            storageBucket: "stop-hunter.appspot.com",
+            messagingSenderId: "970057755677"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+    <style>
+        .main {
+            margin-top: 40px;
+            font-size: large;
+            cursor: pointer;
+        }
+        
+        .main-button {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .scoreboard {
+            margin-top: 40px;
+        }
+        
+        .userpic {
+            width: 30px;
+            height: 30px;
+        }
+        
+        em {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-faded">
+            <div class="navbar-brand">Облава на <em>эти ваши</em> стоп-слова!</div>
+            <a href="#" class="go-button btn btn-success btn-outline" onclick="goNext()">Поехали!</a>
+            <a class="navbar nav nav-item nav-link float-xs-right" href="#" onclick="signIn()">войти</a>
+            <a class="navbar nav nav-item nav-link float-xs-right" href="#" onclick="signOut()">выйти</a>
+            <div class="navbar brand float-xs-right"><img class="userpic d-inline-block align-top" /><span class="username"></span></div>
+        </nav>
+        <div class="row">
+            <div onclick="clickText(event)" class="main col-sm-12">
+                <em>Очень</em> советуем потренироваться в <em>чем-то вроде</em> редактуры <em>нашего</em> текста! Это, <em>совершенно точно, очень</em> полезно <em>для вас</em>!
+            </div>
+        </div>
+        <div class="row">
+            <button onclick="finishLevel()" class="main-button btn btn-primary btn-lg finish col-sm-4 offset-md-4" style="display:none">
+                Готово!
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 scoreboard">
+                <h2><em>Как бы</em> рейтинг охотников <em>или вроде того<em></h2>
+                <table class="table scoreboard">
+                    <thead>
+                        <tr>
+                            <th>Охотник</th>
+                            <th>Стоп-слов обнаружено</th>
+                        </tr>
+                    </thead>
+                    <tbody class="scoreboard-body">
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
