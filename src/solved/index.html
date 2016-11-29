@@ -1,6 +1,13 @@
 <html>
 
 <head>
+    <script>
+        // Hack for master class only! Dont use this in production!
+        // firebase google auth accept requests from localhost, but not from 127.0.0.1  
+        var newHref = window.location.href.replace(/\d+\.\d+\.\d+\.\d+/, "localhost");
+        if (window.location.href != newHref)
+            window.location.href = newHref;
+    </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
     <script src="//code.jquery.com/jquery-3.1.1.slim.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.3.1/js/tether.min.js"></script>
@@ -17,12 +24,15 @@
         firebase.initializeApp(config);
     </script>
     <script src="index.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
     <style>
         .main {
             margin-top: 40px;
             font-size: large;
             cursor: pointer;
+        }
+        
+        .found-stop-word {
+            text-decoration: line-through;
         }
         
         .main-button {
@@ -43,6 +53,7 @@
             cursor: pointer;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="//csshake.surge.sh/csshake.min.css">
 </head>
 
 <body>

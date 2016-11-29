@@ -35,7 +35,7 @@ window.onload = function() {
 }
 
 function startLevel(level) {
-    levelIndex = level || 0;
+    levelIndex = level % 4;
     stopWordsFound = 0;
     misses = 0;
     // 7. Get level text from levels/{levelIndex}. Without subscription!!! https://firebase.google.com/docs/database/web/read-and-write#read_data_once
@@ -52,13 +52,14 @@ function startLevel(level) {
 function finishLevel() {
     $(".go-button").show();
     $(".main-button").hide();
-    setMainText("<em>Вроде бы</em> поверженно стоп-слов — " + stopWordsFound + ". <em>При этом, к сожалению,</em> промахов — " + misses + ".");
+    setMainText("<em>Вроде бы</em> повержено стоп-слов — " + stopWordsFound + ". <em>При этом, к сожалению,</em> промахов — " + misses + ".");
     // 8. Send scores! (Read score then write score+1). https://firebase.google.com/docs/database/web/read-and-write#basic_write
     var user = firebase.auth().currentUser;
     if (!user) return;
-    var userScoreRef = firebase.database().ref("scoreboard/" + user.displayName);
+    var userScoreRef = firebase.database()
+        .ref("scoreboard/" + user.displayName);
     userScoreRef.once("value", function(snap) {
-        userScoreRef.set(snap.val() + 1);
+        userScoreRef.set(snap.val() + stopWordsFound);
     });
     updateEmHandlers();
 }
@@ -83,9 +84,9 @@ function updateScoreboard(scores) {
 }
 
 function clickText(e) {
-    if (e.srcElement.className == "stop-word") {
-        e.srcElement.style["text-decoration"] = "line-through";
-        e.srcElement.className = null;
+    var target = $(e.target);
+    if (target.hasClass("stop-word")) {
+        markFoundStopWord(target);
         stopWordsFound++;
     } else misses++;
     console.log(e);
@@ -105,6 +106,13 @@ function goNext() {
     startLevel(levelIndex + 1);
 }
 
+function markFoundStopWord($el) {
+    $el
+        .removeClass("stop-word")
+        .addClass("found-stop-word")
+        .addClass("shake");
+}
+
 function updateEmHandlers() {
-    $('em').click(function() { this.style["text-decoration"] = "line-through"; });
+    $('em').click(function() { markFoundStopWord($(this)); });
 }

@@ -6,45 +6,46 @@ var misses = 0;
 
 function signIn() {
     // 1. Sign in with firebase. https://firebase.google.com/docs/auth/web/google-signin
-    // stub:
-    alert("sign in stub");
+    // stub: 
+	alert("sign in stub");
 }
 
 function signOut() {
     // 2. Sign out with firebase. https://firebase.google.com/docs/auth/web/google-signin#next_steps
     //stub: 
-    alert("sign out stub");
+	alert("sign out stub");
 }
 
 window.onload = function() {
     // 3. Subscribe on sign in changes. https://firebase.google.com/docs/auth/web/manage-users
     // stub: 
-    updateUserView(null);
+	updateUserView(null);
 
     // 4. Subscribe on scoreboard changed. https://firebase.google.com/docs/database/web/read-and-write#listen_for_value_events
     // 5. Limit scoreboard to 10 top records. https://firebase.google.com/docs/database/web/lists-of-data#sort_data
     // 6. Add index in console. https://firebase.google.com/docs/database/security/indexing-data#section-indexing-order-by-value  
     // stub: 
-    updateScoreboard({ 'Pavel Egorov': 234, 'Dmitriy Mramorov': 238 });
+	updateScoreboard({'Pavel Egorov':234, 'Dmitriy Mramorov': 238});
 
     updateEmHandlers();
 }
 
 function startLevel(level) {
-    levelIndex = level || 0;
+    levelIndex = level % 4;
     stopWordsFound = 0;
     misses = 0;
     // 7. Get level text from levels/{levelIndex}. Without subscription!!! https://firebase.google.com/docs/database/web/read-and-write#read_data_once
     // stub: 
-    setMainText("{Некоторый} текст");
-    $(".main-button").show();
-    $(".go-button").html("Ещё!").hide();
+	setMainText("{Некоторый} текст");
+
+	$(".main-button").show();
+	$(".go-button").html("Ещё!").hide();
 }
 
 function finishLevel() {
     $(".go-button").show();
     $(".main-button").hide();
-    setMainText("<em>Вроде бы</em> поверженно стоп-слов — " + stopWordsFound + ". <em>При этом, к сожалению,</em> промахов — " + misses + ".");
+    setMainText("<em>Вроде бы</em> повержено стоп-слов — " + stopWordsFound + ". <em>При этом, к сожалению,</em> промахов — " + misses + ".");
     // 8. Send scores! (Read score then write score+1). https://firebase.google.com/docs/database/web/read-and-write#basic_write
 
     updateEmHandlers();
@@ -70,9 +71,9 @@ function updateScoreboard(scores) {
 }
 
 function clickText(e) {
-    if (e.srcElement.className == "stop-word") {
-        e.srcElement.style["text-decoration"] = "line-through";
-        e.srcElement.className = null;
+    var target = $(e.target);
+    if (target.hasClass("stop-word")) {
+        markFoundStopWord(target);
         stopWordsFound++;
     } else misses++;
     console.log(e);
@@ -92,6 +93,13 @@ function goNext() {
     startLevel(levelIndex + 1);
 }
 
+function markFoundStopWord($el) {
+    $el
+        .removeClass("stop-word")
+        .addClass("found-stop-word")
+        .addClass("shake");
+}
+
 function updateEmHandlers() {
-    $('em').click(function() { this.style["text-decoration"] = "line-through"; });
+    $('em').click(function() { markFoundStopWord($(this)); });
 }
