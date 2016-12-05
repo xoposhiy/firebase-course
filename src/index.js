@@ -46,7 +46,7 @@ function finishLevel() {
     $(".go-button").show();
     $(".main-button").hide();
     setMainText("<em>Вроде бы</em> повержено стоп-слов — " + stopWordsFound + ". <em>При этом, к сожалению,</em> промахов — " + misses + ".");
-    // 8. Send scores! (Read score then write score+1). https://firebase.google.com/docs/database/web/read-and-write#basic_write
+    // 8. Send scores! (Read score then write score + stopWordsFound). https://firebase.google.com/docs/database/web/read-and-write#basic_write
 
     updateEmHandlers();
 }
