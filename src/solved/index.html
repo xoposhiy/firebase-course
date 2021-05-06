@@ -1,6 +1,7 @@
+﻿<!DOCTYPE html>
 <html>
-
 <head>
+    <meta charset="utf-8">
     <script>
         // Hack for master class only! Dont use this in production!
         // firebase google auth accept requests from localhost, but not from 127.0.0.1  
@@ -31,6 +32,9 @@
             cursor: pointer;
         }
         
+        .found-stop-word.shake {
+            display: inline;
+        }
         .found-stop-word {
             text-decoration: line-through;
         }
@@ -49,6 +53,10 @@
             height: 30px;
         }
         
+        .navbar {
+            line-height:30px;
+        }
+        
         em {
             cursor: pointer;
         }
@@ -63,7 +71,7 @@
             <a href="#" class="go-button btn btn-success btn-outline" onclick="goNext()">Поехали!</a>
             <a class="navbar nav nav-item nav-link float-xs-right" href="#" onclick="signIn()">войти</a>
             <a class="navbar nav nav-item nav-link float-xs-right" href="#" onclick="signOut()">выйти</a>
-            <div class="navbar brand float-xs-right"><img class="userpic d-inline-block align-top" /><span class="username"></span></div>
+            <div class="navbar brand float-xs-right userpic-line"><img class="userpic d-inline-block align-top" /> <span class="username"></span></div>
         </nav>
         <div class="row">
             <div onclick="clickText(event)" class="main col-sm-12">
